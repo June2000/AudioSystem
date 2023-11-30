@@ -1,0 +1,955 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MyUserControl="clr-namespace:MyUserControl;assembly=MyUserControl" x:Class="AudioSystem.MainWindow"
+        Title="音频系统"  Height="590" Width="1006" x:Name="SystemWind"
+        WindowStartupLocation="CenterScreen" Loaded="SystemWind_Loaded" Icon="Image/图标.jpg" Closing="SystemWind_Closing" >
+    
+    <Window.Resources>
+        <Style x:Key="cIcon" TargetType="Label">
+            <Setter Property="FontFamily" Value="Resource/#iconfont" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="Gray"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <!--<Setter Property="FontSize" Value="26" />-->
+                    <Setter Property="Background" Value="#59CA4F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="bIcon" TargetType="Label">
+            <Setter Property="FontFamily" Value="Resource/#iconfont" />
+            <Setter Property="FontSize" Value="25" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontSize" Value="26" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ToggleButton" x:Key="stlToggleButton">
+            <Setter Property="Foreground" Value="Blue"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="Back" Background="Gray" BorderThickness="1" BorderBrush="Transparent">
+                            <Path Name="PathFill" Fill="Blue" Width="14" Height="12" StrokeThickness="0" Data="M5,0 L10,10 L0,10 z" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="180"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!--<Setter TargetName="PathFill" Property="Fill" Value="Red"></Setter>-->
+                                <Setter TargetName="PathFill" Property="Width" Value="16"></Setter>
+                                <Setter TargetName="PathFill" Property="Height" Value="14"></Setter>
+                                <Setter TargetName="Back" Property="Background" Value="#59CA4F"></Setter>
+                                <Setter TargetName="Back" Property="BorderBrush" Value="#59CA4F"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBox" x:Key="stlComboBox">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="Foreground" Value="Blue"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="Margin" Value="0,0,0,0"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid Background="Gray">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.7*"/>
+                                <ColumnDefinition Width="0.3*" MaxWidth="30"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox  Grid.Column="0" IsReadOnly="True" Text="{TemplateBinding Text}" Foreground="Green" FontSize="14"
+                                      HorizontalContentAlignment="Center" Background="Black" VerticalContentAlignment="Center"></TextBox>
+                            <Border  Grid.Column="0" BorderThickness="1,1,0,1" BorderBrush="Gray" CornerRadius="1,0,0,1">
+                            </Border>
+                            <Border Grid.Column="1" BorderThickness="0,1,1,1" BorderBrush="Gray" CornerRadius="0,1,1,0">
+                                <ToggleButton Style="{StaticResource stlToggleButton}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"></ToggleButton>
+                            </Border>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Slide">
+                                <Border CornerRadius="1" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="White" BlurRadius="2" ShadowDepth="0" Opacity="0.5"/>
+                                    </Border.Effect>
+                                    <ScrollViewer Margin="4,6,4,6" Style="{DynamicResource ScrollViewerStyle}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                                        <!-- StackPanel 用于显示子级，方法是将 IsItemsHost 设置为 True -->
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Background="Gray"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.Background>
+        <VisualBrush>
+            <VisualBrush.Visual>
+                <Image Source="Image/面板.png" Stretch="Fill" />
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </Window.Background>
+
+    <Grid  Width="Auto" Height="Auto" Name="grid" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9.5*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+        
+        <Viewbox Stretch="Fill" Grid.Row="0">
+            <Canvas Height="59" Width="1006">
+                <Image Source="Image/LOGO.png" Height="35" Width="110"  Margin="26,14,0,0" Visibility="Collapsed"/>
+                <Label Content="智能教学扩音控制系统" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="340,10,0,0"
+						FontFamily="SimSun" FontSize="23" FontWeight="Bold" Foreground="White"  />
+                <Label Content="V1.0" Foreground="Red" FontSize="14" VerticalContentAlignment="Center" Margin="590,18,0,0" />
+                
+        
+                <TextBox  Name="TypeText" Margin="670,10,0,0" Text="DSP-NL3000R" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                          FontFamily="Lucida Sans" FontSize="20" Background="Black" Foreground="Yellow" Width="180" Height="35" IsReadOnly="True" MouseDoubleClick="TypeText_MouseDoubleClick"  >
+                   
+                </TextBox>
+                <!--<Label Content="DSP-NL3000R" Name="Label1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
+						FontFamily="Lucida Sans" FontSize="20" Background="Black" Foreground="Blue" Cursor="Hand" Margin="700,10,0,0" >--><!--
+                </Label>-->
+                <Label Content="&#xe640;" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                           Style="{StaticResource bIcon}"   Foreground="White"  Margin="850,6,0,0" Name="DownType" MouseDown="DownType_MouseDown" />
+                <Label Content="&#xe63e;" Name="PassWord" Style="{StaticResource bIcon}" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Foreground="White" Margin="900,6,0,0"  MouseDown="PassWord_MouseDown" IsEnabled="{Binding Path=Value,ElementName=KButton2}"/>
+                <Label Content="&#xe61f;" Name="SaveKey" Style="{StaticResource bIcon}" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Foreground="White" Margin="950,6,0,0" MouseDown="SaveKey_MouseDown" IsEnabled="{Binding Path=Value,ElementName=KButton2}" />
+            </Canvas>
+        </Viewbox>
+        
+        <Viewbox Stretch="Fill" Grid.Row="1" >
+            <Canvas Height="250" Width="1006" Name="canvas1">
+                <MyUserControl:AKnob Value="1"  Height=" 140" Width="110" Name="AKnob1" Margin="490,40,0,0" Cursor="Hand"  ValueChanged="AKnob1_ValueChanged" IsEnabled="{Binding Path=Value,ElementName=KButton2}"/>
+                <Label Content="MIC1 VOL" FontSize="13" FontFamily="Rockwell" Foreground="White" Margin="510,190,0,10"/>
+                <MyUserControl:AKnob Value="1"  Height=" 140" Width="110" Name="AKnob2" Margin="617,40,0,0" Cursor="Hand" ValueChanged="AKnob2_ValueChanged" IsEnabled="{Binding Path=Value,ElementName=KButton2}"/>
+                <Label Content="MIC2 VOL" FontSize="13" FontFamily="Rockwell" Foreground="White" Margin="637,190,0,10"/>
+                <MyUserControl:AKnob Value="1"  Height=" 140" Width="110" Name="AKnob3" Margin="745,40,0,0" Cursor="Hand" ValueChanged="AKnob3_ValueChanged"  IsEnabled="{Binding Path=Value,ElementName=KButton2}"/>
+                <Label Content="AUX1 VOL" FontSize="13" FontFamily="Rockwell" Foreground="White" Margin="765,190,0,10"/>
+                <MyUserControl:AKnob Value="1"  Height=" 140" Width="110" Name="AKnob4" Margin="873,40,0,0" Cursor="Hand" ValueChanged="AKnob4_ValueChanged" IsEnabled="{Binding Path=Value,ElementName=KButton2}" />
+                <Label Content="AUX2 VOL" FontSize="13" FontFamily="Rockwell" Foreground="White" Margin="893,190,0,10"/>
+
+                <ComboBox Name="ComboBox1" Style="{StaticResource stlComboBox}" Width="75" Height="22" Margin="28,20,0,0" Visibility="Visible">
+                   
+                </ComboBox>
+                <TextBox Text="192.168.0.181" Width="75" Height="22" Margin="28,20,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Background="Black" Foreground="Green" FontSize="10" Visibility="Collapsed" Name="IPname"/>
+                <ComboBox Name="ComboBox2" Style="{StaticResource stlComboBox}" Width="75" Height="22" Margin="28,64,0,0" Visibility="{Binding Path=Visibility,ElementName=ComboBox1}" SelectedIndex="1">
+                    <ComboBoxItem Content="4800"></ComboBoxItem>
+                    <ComboBoxItem Content="9600"></ComboBoxItem>
+                    <ComboBoxItem Content="14400"></ComboBoxItem>
+                    <ComboBoxItem Content="19200"></ComboBoxItem>
+                    <ComboBoxItem Content="38400"></ComboBoxItem>
+                    <ComboBoxItem Content="56000"></ComboBoxItem>
+                    <ComboBoxItem Content="57600"></ComboBoxItem>
+                    <ComboBoxItem Content="115200"></ComboBoxItem>
+                </ComboBox>
+                <TextBox Text="1500" Width="75" Height="22" Margin="28,64,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Background="Black" Foreground="Green" FontSize="10" Visibility="{Binding Path=Visibility,ElementName=IPname}" Name="UDPPort"/>
+                
+                <MyUserControl:KButton  Name="KButton1" Width="75" Height="22" Margin="28,108,0,0"
+                                        Value="False" OffString="CLOSE" OnString="OPEN" ValueChanged="KButton1_ValueChanged" />
+
+
+                <MyUserControl:KButton Name="KButton2" Width="75" Height="22" Margin="28,152,0,0" Value="False" ValueChanged="KButton2_ValueChanged" IsEnabled="{Binding Path=Value,ElementName=KButton1}"/>
+
+
+                <ComboBox Name="ComboBox3" Style="{StaticResource stlComboBox}" Width="75" Height="22" Margin="28,196,0,0" SelectedIndex="0" SelectionChanged="ComboBox3_SelectionChanged">
+                    <ComboBoxItem Content="RS232"></ComboBoxItem>
+                    <ComboBoxItem Content="RJ45"></ComboBoxItem>
+                </ComboBox>
+
+                <Label Content="COM" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="28,40,0,0" Visibility="{Binding Path=Visibility,ElementName=ComboBox1}" Name="label1"/>
+                <Label Content="Baud" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="28,84,0,0" Visibility="{Binding Path=Visibility,ElementName=ComboBox1}" Name="Baud1"/>
+                <Label Content="IP" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="28,40,0,0" Visibility="{Binding Path=Visibility,ElementName=IPname}" Name="IP1"/>
+                <Label Content="Port" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="28,84,0,0" Visibility="{Binding Path=Visibility,ElementName=IPname}" Name="Port1"/>
+                <Label Content="Open/Close" Foreground="WhiteSmoke" Width="80" HorizontalContentAlignment="Center" FontSize="12" Margin="28,128,0,0"/>
+                <Label Content="Link" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="28,172,0,0"/>
+                <Label Content="RS232/RJ45" Foreground="WhiteSmoke" Width="80" HorizontalContentAlignment="Center" FontSize="12" Margin="28,216,0,0"/>
+
+                <ComboBox Name="ComboBox4" Style="{StaticResource stlComboBox}" Width="75" Height="22" Margin="145,20,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                          SelectedIndex="0" SelectionChanged="ComboBox4_SelectionChanged" >
+                    <ComboBoxItem Content="0"></ComboBoxItem>
+                    <ComboBoxItem Content="1"></ComboBoxItem>
+                    <ComboBoxItem Content="2"></ComboBoxItem>
+                    <ComboBoxItem Content="3"></ComboBoxItem>
+                    <ComboBoxItem Content="4"></ComboBoxItem>
+                    <ComboBoxItem Content="5"></ComboBoxItem>
+                    <ComboBoxItem Content="6"></ComboBoxItem>
+                    <ComboBoxItem Content="7"></ComboBoxItem>
+                    <ComboBoxItem Content="8"></ComboBoxItem>
+                    <ComboBoxItem Content="9"></ComboBoxItem>
+                </ComboBox>
+
+                <ComboBox Name="ComboBox5" Style="{StaticResource stlComboBox}" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                          Width="75" Height="22" Margin="145,64,0,0" SelectedIndex="0" SelectionChanged="ComboBox5_SelectionChanged">
+                    <ComboBoxItem Content="0"></ComboBoxItem>
+                    <ComboBoxItem Content="1"></ComboBoxItem>
+                    <ComboBoxItem Content="2"></ComboBoxItem>
+                    <ComboBoxItem Content="3"></ComboBoxItem>
+                    <ComboBoxItem Content="4"></ComboBoxItem>
+                    <ComboBoxItem Content="5"></ComboBoxItem>
+                    <ComboBoxItem Content="6"></ComboBoxItem>
+                    <ComboBoxItem Content="7"></ComboBoxItem>
+                    <ComboBoxItem Content="8"></ComboBoxItem>
+                    <ComboBoxItem Content="9"></ComboBoxItem>
+                </ComboBox>
+
+                <MyUserControl:KButton  Name="KButton3" Width="75" Height="22" Margin="145,108,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                         Value="{Binding UserID}" OffString="OFF" OnString="ON" ValueChanged="KButton3_ValueChanged" />
+
+                <MyUserControl:KButton  Name="KButton4" Width="75" Height="22" Margin="145,152,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Value="False" OffString="OFF" OnString="ON" ValueChanged="KButton4_ValueChanged" />
+
+                <TextBox Width="52" Height="22" Name="TimeBox" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                     Foreground="Blue" Background="Black" FontSize="14" Margin="145,196,0,0" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="TimeBox_PreviewTextInput"/>
+                <Label Content="&#xe651;" Name="TimeUpdata" Height="23" Width="23" Style="{StaticResource cIcon}" Foreground="Blue" Margin="196,195.5,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}" MouseDown="TimeUpdata_MouseDown"/>
+
+                <Label Content="Noise" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="145,40,0,0"/>
+                <Label Content="Press" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="145,84,0,0"/>
+                <Label Content="AFC" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="145,128,0,0"/>
+                <Label Content="AEC" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="145,172,0,0"/>
+                <Label Content="Time" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="145,216,0,0"/>
+
+                <MyUserControl:KButton  Name="KButton5" Width="75" Height="22" Margin="263,20,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Value="False" OffString="OFF" OnString="ON" ValueChanged="KButton5_ValueChanged" />
+                <MyUserControl:KButton  Name="KButton6" Width="75" Height="22" Margin="263,64,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Value="False" OffString="OFF" OnString="ON" ValueChanged="KButton6_ValueChanged" />
+                <ComboBox Name="ComboBox6" Style="{StaticResource stlComboBox}" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                          Width="75" Height="22" Margin="263,108,0,0" SelectedIndex="0" SelectionChanged="ComboBox6_SelectionChanged" >
+                    <ComboBoxItem Content="1"></ComboBoxItem>
+                    <ComboBoxItem Content="2"></ComboBoxItem>
+                    <ComboBoxItem Content="3"></ComboBoxItem>
+                    <ComboBoxItem Content="4"></ComboBoxItem>
+                    <ComboBoxItem Content="5"></ComboBoxItem>
+                </ComboBox>
+                <ComboBox Name="ComboBox7" Style="{StaticResource stlComboBox}" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                          Width="75" Height="22" Margin="263,152,0,0" SelectionChanged="ComboBox7_SelectionChanged" SelectedIndex="0">
+                    <ComboBoxItem Content="0"></ComboBoxItem>
+                    <ComboBoxItem Content="1"></ComboBoxItem>
+                    <ComboBoxItem Content="2"></ComboBoxItem>
+                    <ComboBoxItem Content="3"></ComboBoxItem>
+                    <ComboBoxItem Content="4"></ComboBoxItem>
+                    <ComboBoxItem Content="5"></ComboBoxItem>
+                </ComboBox>
+                <TextBox Width="52" Height="22" Text="0" Name="IDBox" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsEnabled="False"
+                                     Foreground="Blue" Background="Black" FontSize="14" Margin="263,196,0,0" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="IDBox_PreviewTextInput"/>
+                <Label Content="&#xe651;" Height="23" Width="23" Style="{StaticResource cIcon}" Foreground="Blue" Margin="314,195.5,0,0" IsEnabled="False"/>
+
+                <Label Content="MIC Mute" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="263,40,0,0"/>
+                <Label Content="SYS Mute" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="263,84,0,0"/>
+                <Label Content="Save" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="263,128,0,0"/>
+                <Label Content="Call" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="263,172,0,0"/>
+                <Label Content="ID Setup" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="263,216,0,0"/>
+
+                <MyUserControl:KButton  Name="KButton7" Width="75" Height="22" Margin="377,20,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Value="True" OffString="OFF" OnString="ON" ValueChanged="KButton7_ValueChanged_1" />
+                <MyUserControl:KButton  Name="KButton8" Width="75" Height="22" Margin="377,64,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Value="False" OnString="Lock" OffString="UnLock" ValueChanged="KButton8_ValueChanged" />
+                <MyUserControl:KButton  Name="KButton9" Width="75" Height="22" Margin="377,108,0,0" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Value="False" OffString="OFF" OnString="ON" ValueChanged="KButton9_ValueChanged" />
+                <Label Content="Power" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="377,40,0,0"/>
+                <Label Content="Lock" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="377,84,0,0"/>
+                <Label Content="DC48V" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="377,128,0,0"/>
+                <Label Content="USB audio" Foreground="WhiteSmoke" Width="75" HorizontalContentAlignment="Center" FontSize="12" Margin="377,216,0,0"/>
+
+
+                <Label Content="&#xe803;"  Style="{StaticResource cIcon}" Foreground="Blue"  Width="27" Height="27" FontSize="18" IsEnabled="False"
+                               Margin="370,155,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Label Content="&#xe611;"  Style="{StaticResource cIcon}" Foreground="Blue"  Width="27" Height="27" FontSize="18" IsEnabled="False"
+                               Margin="402.5,155,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Label Content="&#xf018e;"  Style="{StaticResource cIcon}" Foreground="Red"  Width="27" Height="27" FontSize="18" IsEnabled="False"
+                               Margin="435,155,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Label Content="&#xe7ff;"  Style="{StaticResource cIcon}" Foreground="Blue"  Width="34" Height="27" FontSize="18" IsEnabled="False"
+                               Margin="375,190,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Label Content="&#xe800;"  Style="{StaticResource cIcon}" Foreground="Blue"  Width="34" Height="27" FontSize="18" IsEnabled="False"
+                               Margin="421,190,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+            </Canvas>
+        </Viewbox>
+        
+        <Viewbox Stretch="Fill" Grid.Row="2">
+            <Canvas Height="251" Width="1006" Margin="1,0,0,0" >
+                <!--第十一个-->
+                <MyUserControl:TSlider  Name="TSlider11"  Value="5"  MinDate="5" MaxDate="20" MinString="5K" MaxString="20K" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="28,60,0,0" FontSize="22" ValueChangedB="TSlider11_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider11}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="40,27,0,6" FontSize="14"/>
+                <Label Content="kHz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="78,23,0,0"/>
+                
+                <Label Content="Lopass"  FontSize="15" FontFamily="SimSun" Margin="40,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第十二个-->
+                <MyUserControl:TSlider  Name="TSlider12"  Value="50"  MinDate="50" MaxDate="250" MinString="50" MaxString="250" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="110,60,0,0" FontSize="22" StepValue="10" ValueChangedB="TSlider12_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider12}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="122,27,0,6" FontSize="14"/>
+                <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="160,23,0,0"/>
+
+                <Label Content="Hipass"  FontSize="15" FontFamily="SimSun" Margin="122,200,0,0" FontWeight="Bold" Foreground="White"  />
+
+                <!--第1个-->
+                <MyUserControl:TSlider  Name="TSlider1"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="210,60,0,0" FontSize="22" ValueChangedB="TSlider1_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider1}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="222,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="260,23,0,0"/>
+
+                <Label Content="70Hz"  FontSize="15" FontFamily="SimSun" Margin="229,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第2个-->
+                <MyUserControl:TSlider  Name="TSlider2"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="288,60,0,0" FontSize="22" ValueChangedB="TSlider2_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider2}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="300,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="340,23,0,0"/>
+
+                <Label Content="180Hz"  FontSize="15" FontFamily="SimSun" Margin="303,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第3个-->
+                <MyUserControl:TSlider  Name="TSlider3"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="366,60,0,0" FontSize="22" ValueChangedB="TSlider3_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider3}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="378,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="416,23,0,0"/>
+
+                <Label Content="320Hz"  FontSize="15" FontFamily="SimSun" Margin="384,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第4个-->
+                <MyUserControl:TSlider  Name="TSlider4"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="444,60,0,0" FontSize="22" ValueChangedB="TSlider4_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider4}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="456,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="494,23,0,0"/>
+
+                <Label Content="600Hz"  FontSize="15" FontFamily="SimSun" Margin="459,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第5个-->
+                <MyUserControl:TSlider  Name="TSlider5"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="522,60,0,0" FontSize="22" ValueChangedB="TSlider5_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider5}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="534,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="572,23,0,0"/>
+
+                <Label Content="1KHz"  FontSize="15" FontFamily="SimSun" Margin="540,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第6个-->
+                <MyUserControl:TSlider  Name="TSlider6"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="600,60,0,0" FontSize="22" ValueChangedB="TSlider6_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider6}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="612,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="652,23,0,0"/>
+
+                <Label Content="3KHz"  FontSize="15" FontFamily="SimSun" Margin="620,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第7个-->
+                <MyUserControl:TSlider  Name="TSlider7"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="678,60,0,0" FontSize="22" ValueChangedB="TSlider7_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider7}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="690,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="728,23,0,0"/>
+
+                <Label Content="6KHz"  FontSize="15" FontFamily="SimSun" Margin="700,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第8个-->
+                <MyUserControl:TSlider  Name="TSlider8"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="756,60,0,0" FontSize="22" ValueChangedB="TSlider8_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider8}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="778,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="816,23,0,0"/>
+
+                <Label Content="12KHz"  FontSize="15" FontFamily="SimSun" Margin="778,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第9个-->
+                <MyUserControl:TSlider  Name="TSlider9"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="834,60,0,0" FontSize="22" ValueChangedB="TSlider9_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider9}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="856,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="894,23,0,0"/>
+
+                <Label Content="14KHz"  FontSize="15" FontFamily="SimSun" Margin="856,200,0,0" FontWeight="Bold" Foreground="White"  />
+                <!--第10个-->
+                <MyUserControl:TSlider  Name="TSlider10"  Value="-12"  MinDate="-12" MaxDate="12" MinString="-12" MaxString="12" IsEnabled="{Binding Path=Value,ElementName=KButton2}"
+                                        Height="140" Width="70" Margin="912,60,0,0" FontSize="22" ValueChangedB="TSlider10_ValueChangedB"/>
+                <TextBox Width="42" Height="20" Text="{Binding Path=Value,ElementName=TSlider10}" IsReadOnly="True" Background="#FF807A7A"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="924,27,0,6" FontSize="14"/>
+                <Label Content="dB" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Margin="962,23,0,0"/>
+
+                <Label Content="16KHz"  FontSize="15" FontFamily="SimSun" Margin="930,200,0,0" FontWeight="Bold" Foreground="White"  />
+
+
+            </Canvas>
+        </Viewbox>
+        
+        <!--<Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="30*" />
+            </Grid.ColumnDefinitions>
+            <Viewbox >
+                <Image Source="Image/LOGO.png"  Margin="0,10,28,7"/>
+            </Viewbox>
+
+            <Viewbox Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="智能教学扩音控制系统" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="10,7,3,7"
+						FontFamily="SimSun" FontSize="18" FontWeight="Bold" Foreground="White"  />
+                    <Label Content="V1.0" Foreground="Red" FontSize="10" VerticalContentAlignment="Center" Margin="3,15,10,10"/>
+                </StackPanel>
+
+            </Viewbox>
+            <Viewbox Grid.Column="2" >
+                <StackPanel Orientation="Horizontal" Width="190">
+                    <Label Content="DSP-NL3000R" Name="Label1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
+						FontFamily="Lucida Sans" FontSize="16" Background="Black" Foreground="Blue" Cursor="Hand" Margin="0,10,0,7" >
+                    </Label>
+                    <Label Content="&#xe640;" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Style="{StaticResource bIcon}"   Foreground="White" Width="35" Height="35" Margin="0,6,2,6" />
+                    <Label Content="&#xe63e;" Name="PassWord" Style="{StaticResource bIcon}" Background="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Foreground="White" Width="35" Height="35" MouseDown="PassWord_MouseDown"/>
+                </StackPanel>
+            </Viewbox>
+        </Grid>
+
+        <Grid  Grid.Row="1"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="13*" />
+                <ColumnDefinition Width="457*" />
+                <ColumnDefinition Width="512*" />
+                <ColumnDefinition Width="18*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="109*" />
+                    <ColumnDefinition Width="116*" />
+                    <ColumnDefinition Width="118*" />
+                    <ColumnDefinition Width="114*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="18*"/>
+                    <RowDefinition Height="43*"/>
+                    <RowDefinition Height="43*"/>
+                    <RowDefinition Height="43*"/>
+                    <RowDefinition Height="43*"/>
+                    <RowDefinition Height="43*"/>
+                    <RowDefinition Height="18*"/>
+                </Grid.RowDefinitions>
+                <Viewbox Name="Rs232View1" Grid.Row="1" Grid.Column="0" Visibility="Collapsed">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox1" Style="{StaticResource stlComboBox}" Width="100" IsEnabled="True">
+                            <ComboBoxItem Content="-请选择-"></ComboBoxItem>
+                            <ComboBoxItem Content="数据1"></ComboBoxItem>
+                            <ComboBoxItem Content="数据2"></ComboBoxItem>
+                            <ComboBoxItem Content="数据3"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="COM" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="0" Visibility="Visible" Name="Rs232View3">
+                    <StackPanel >
+                        <TextBox Text="192.168.1.100" Width="89" Height="27" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Background="Black" Foreground="Blue" FontSize="13"/>
+                        <Label Content="IP" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="0" Visibility="Collapsed" Name="Rs232View2">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox2" Style="{StaticResource stlComboBox}" Width="100" SelectedIndex="1">
+                            <ComboBoxItem Content="4800"></ComboBoxItem>
+                            <ComboBoxItem Content="9600"></ComboBoxItem>
+                            <ComboBoxItem Content="14400"></ComboBoxItem>
+                            <ComboBoxItem Content="19200"></ComboBoxItem>
+                            <ComboBoxItem Content="38400"></ComboBoxItem>
+                            <ComboBoxItem Content="56000"></ComboBoxItem>
+                            <ComboBoxItem Content="57600"></ComboBoxItem>
+                            <ComboBoxItem Content="115200"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Baud" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="0" Visibility="Visible" Name="Rs232View4">
+                    <StackPanel >
+                        <TextBox Text="8000" Width="85" Height="27" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                 Background="Black" Foreground="Blue" FontSize="14"/>
+                        <Label Content="Port" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="0">
+                    <StackPanel >
+                        <MyUserControl:KButton  Name="KButton1" Width="105" Height="30" Value="False" OffString="CLOSE" OnString="OPEN" />
+                        <Label Content="Open/Close" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="4" Grid.Column="0">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton2" Width="105" Height="30" Value="False" />
+                        <Label Content="Link" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="5" Grid.Column="0">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox3" Style="{StaticResource stlComboBox}" Width="100" SelectedIndex="0" SelectionChanged="ComboBox3_SelectionChanged">
+                            <ComboBoxItem Content="RS232"></ComboBoxItem>
+                            <ComboBoxItem Content="RJ45"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="RS232/RJ45" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="1" Grid.Column="1">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox4" Style="{StaticResource stlComboBox}" Width="100" SelectedIndex="0">
+                            <ComboBoxItem Content="0"></ComboBoxItem>
+                            <ComboBoxItem Content="1"></ComboBoxItem>
+                            <ComboBoxItem Content="2"></ComboBoxItem>
+                            <ComboBoxItem Content="3"></ComboBoxItem>
+                            <ComboBoxItem Content="4"></ComboBoxItem>
+                            <ComboBoxItem Content="5"></ComboBoxItem>
+                            <ComboBoxItem Content="6"></ComboBoxItem>
+                            <ComboBoxItem Content="7"></ComboBoxItem>
+                            <ComboBoxItem Content="8"></ComboBoxItem>
+                            <ComboBoxItem Content="9"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Noise" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="1">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox5" Style="{StaticResource stlComboBox}" Width="100" SelectedIndex="0">
+                            <ComboBoxItem Content="0"></ComboBoxItem>
+                            <ComboBoxItem Content="1"></ComboBoxItem>
+                            <ComboBoxItem Content="2"></ComboBoxItem>
+                            <ComboBoxItem Content="3"></ComboBoxItem>
+                            <ComboBoxItem Content="4"></ComboBoxItem>
+                            <ComboBoxItem Content="5"></ComboBoxItem>
+                            <ComboBoxItem Content="6"></ComboBoxItem>
+                            <ComboBoxItem Content="7"></ComboBoxItem>
+                            <ComboBoxItem Content="8"></ComboBoxItem>
+                            <ComboBoxItem Content="9"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Press" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="3" Grid.Column="1">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton3" Width="105" Height="30" Value="False" />
+                        <Label Content="AFC" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="4" Grid.Column="1">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton4" Width="105" Height="30" Value="False" />
+                        <Label Content="AEC" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Grid Grid.Row="5" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="60*"/>
+                        <RowDefinition  Height="40*"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="70" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Foreground="Blue" Background="Black" FontSize="20" Margin="3,0,0,0.5"/>
+                            --><!--<Button Content="&#xe651;" Style="{StaticResource bIcon}" Width="13" Height="13"   FontSize="9"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray" Foreground="Blue" Margin="0,0,3,0.5" />--><!--
+                            <Label Content="&#xe651;" Style="{StaticResource cIcon}" Foreground="Blue" />
+                        </StackPanel>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" >
+                        <Label Content="Time" Foreground="White" FontSize="16"/>
+                    </Viewbox>
+                </Grid>
+
+           
+
+                <Viewbox Grid.Row="1" Grid.Column="2">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton5" Width="105" Height="30" Value="False" />
+                        <Label Content="MIC Mute" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="2" Grid.Column="2">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton6" Width="105" Height="30" Value="False" />
+                        <Label Content="SYS Mute" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="3" Grid.Column="2">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox6" IsEnabled="False" Style="{StaticResource stlComboBox}" Width="100" SelectedIndex="{Binding Path=SelectedIndex,ElementName=ComboBox7}">
+                            <ComboBoxItem Content="1"></ComboBoxItem>
+                            <ComboBoxItem Content="2"></ComboBoxItem>
+                            <ComboBoxItem Content="3"></ComboBoxItem>
+                            <ComboBoxItem Content="4"></ComboBoxItem>
+                            <ComboBoxItem Content="5"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Save" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="4" Grid.Column="2">
+                    <StackPanel >
+                        <ComboBox Name="ComboBox7" Style="{StaticResource stlComboBox}" Width="100" SelectedIndex="0" 
+                                    SelectionChanged="ComboBox7_SelectionChanged" >
+                            <ComboBoxItem Content="1"></ComboBoxItem>
+                            <ComboBoxItem Content="2"></ComboBoxItem>
+                            <ComboBoxItem Content="3"></ComboBoxItem>
+                            <ComboBoxItem Content="4"></ComboBoxItem>
+                            <ComboBoxItem Content="5"></ComboBoxItem>
+                        </ComboBox>
+                        <Label Content="Call" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Grid Grid.Row="5" Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="60*"/>
+                        <RowDefinition  Height="40*"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Width="70"  Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                     Foreground="Blue" Background="Black" FontSize="20" Margin="3,0,0,0.5"/>
+                            --><!--<Button Content="&#xe651;" Style="{StaticResource bIcon}" Width="13" Height="13"   FontSize="9"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray" Foreground="Blue" Margin="0,0,3,0.5" />--><!--
+                            <Label Content="&#xe651;" Style="{StaticResource cIcon}" Foreground="Blue" />
+                        </StackPanel>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" >
+                        <Label Content="ID Setup" Foreground="White" FontSize="16"/>
+                    </Viewbox>
+                </Grid>
+
+                <Viewbox Grid.Row="1" Grid.Column="3">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton7"  Width="105" Height="30" ValueChanged="KButton7_ValueChanged" />
+                        <Label Content="Power" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="3">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton8" Width="105" Height="30" OnString="Lock" OffString="UnLock" />
+                        <Label Content="Lock" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.Row="3" Grid.Column="3">
+                    <StackPanel >
+                        <MyUserControl:KButton Name="KButton9" Width="105" Height="30"/>
+                        <Label Content="DC48V" Foreground="WhiteSmoke" HorizontalContentAlignment="Center" FontSize="14"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="4" Grid.Column="3">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="&#xe803;"  Style="{StaticResource cIcon}" Foreground="Blue"  
+                               Margin="14,0,1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Content="&#xe611;"  Style="{StaticResource cIcon}" Foreground="Blue" 
+                               Margin="1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label Content="&#xf018e;"  Style="{StaticResource cIcon}" Foreground="Red" 
+                               Margin="1,0,14,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        --><!--<Button Content="&#xe803;" Style="{StaticResource bIcon}" Width="10" Height="10" Margin="4,0,0.5,0" FontSize="7" 
+                                HorizontalContentAlignment="Left" VerticalContentAlignment="Top" Foreground="Blue" Background="Gray" Padding="1,0"/>
+                        <Button Content="&#xe611;" Style="{StaticResource bIcon}" Width="10" Height="10" Margin="0.5,0" FontSize="7"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Blue" Background="Gray" Padding="0.5,0"/>
+                        <Button Content="&#xe62f;" Style="{StaticResource bIcon}" Width="10" Height="10" Margin="0.5,0,4,0"  FontSize="6"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray" Foreground="Red"/>--><!--
+                    </StackPanel>
+                </Viewbox>
+
+                <Grid Grid.Row="5" Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="60*"/>
+                        <RowDefinition  Height="40*"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox >
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="&#xe7ff;" Style="{StaticResource cIcon}" Foreground="Blue"  Margin="1,1,4,1"
+                                   Width="50" HorizontalContentAlignment="Center"/>
+                            <Label Content="&#xe800;" Style="{StaticResource cIcon}" Foreground="Blue" 
+                                   Width="50" HorizontalContentAlignment="Center" Margin="4,1,1,1"/>
+                            --><!--<Button Content="&#xe7ff;" Style="{StaticResource bIcon}" Width="15" Height="10" Margin="4,0,0.5,0" FontSize="7" 
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Blue" Background="Gray" Padding="1,0"/>
+                            <Button Content="&#xe800;" Style="{StaticResource bIcon}" Width="15" Height="10" Margin="0.5,0,4,0"  FontSize="7"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray" Foreground="Blue" Padding="1,0"/>--><!--
+                        </StackPanel>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" >
+                        <Label Content="USB audio" Foreground="White" FontSize="15"/>
+                    </Viewbox>
+                </Grid>
+                --><!--<Viewbox Name="ViewboxUSB" Grid.Row="5" Grid.Column="3">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="&#xe7ff;" Style="{StaticResource bIcon}" Width="15" Height="10" Margin="4,0,0.5,0" FontSize="7" 
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Blue" Background="Gray" Padding="1,0"/>
+                        <Button Content="&#xe800;" Style="{StaticResource bIcon}" Width="15" Height="10" Margin="0.5,0,4,0"  FontSize="7"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Gray" Foreground="Blue" Padding="1,0"/>
+                    </StackPanel>
+                </Viewbox>--><!--
+
+            </Grid>
+
+
+            <Grid Grid.Column="2" Grid.ColumnSpan="2" Margin="1.4,0,18,0.4" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="133*" />
+                    <ColumnDefinition Width="128*" />
+                    <ColumnDefinition Width="125*" />
+                    <ColumnDefinition Width="126*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="30*" />
+                </Grid.RowDefinitions>
+
+                <Viewbox Grid.Column="0" Grid.Row="1" Margin="0,0.2,1.8,0.4" >
+                    <MyUserControl:AKnob Value="{Binding Mic1Vol}" Margin="35,20,5,0" Name="AKnob1" ValueChanged="AKnob1_ValueChanged" Cursor="Hand"  />
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="0" >
+                    <Label Content="MIC1 VOL" Margin="0,0,0,10" FontSize="6" FontFamily="Rockwell" Foreground="White"  />
+                </Viewbox>
+                <Viewbox Grid.Column="1" Grid.Row="1" >
+                    <MyUserControl:AKnob Margin="5,20,5,0" Value="{Binding Mic2Vol}" Name="AKnob2" Cursor="Hand"/>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="1">
+                    <Label Content="MIC2 VOL" Margin="0,0,0,10" FontSize="6" FontFamily="Rockwell" Foreground="White" />
+                </Viewbox>
+                <Viewbox Grid.Column="2" Grid.Row="1" >
+                    <MyUserControl:AKnob Margin="5,20,5,0" Value="{Binding Aux1Vol}" Name="AKnob3" Cursor="Hand"/>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="2">
+                    <Label Content="AUX1 VOL" Margin="0,0,0,10" FontSize="6" FontFamily="Rockwell" Foreground="White" />
+                </Viewbox>
+
+                <Viewbox Grid.Column="3" Grid.Row="1" >
+                    <MyUserControl:AKnob Margin="5,20,5,0" Value="1" Name="AKnob4" Cursor="Hand"/>
+                </Viewbox>
+                <Viewbox Grid.Row="2" Grid.Column="3">
+                    <Label Content="AUX2 VOL" Margin="0,0,0,10" FontSize="6" FontFamily="Rockwell" Foreground="White" />
+                </Viewbox>
+
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="92*" />
+                <ColumnDefinition Width="98*" />
+                <ColumnDefinition Width="80*" />
+                <ColumnDefinition Width="76*" />
+                <ColumnDefinition Width="73*" />
+                <ColumnDefinition Width="79*" />
+                <ColumnDefinition Width="79*" />
+                <ColumnDefinition Width="80*" />
+                <ColumnDefinition Width="80*" />
+                <ColumnDefinition Width="81*" />
+                <ColumnDefinition Width="81*" />
+                <ColumnDefinition Width="78*" />
+                <ColumnDefinition Width="13*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*" />
+                <RowDefinition Height="30*" />
+                <RowDefinition Height="148*" />
+                <RowDefinition Height="27*" />
+                <RowDefinition Height="21*" />
+            </Grid.RowDefinitions>
+            <Viewbox  Grid.Row="2" Grid.Column="1"  >
+                <MyUserControl:TSlider  Name="TSlider11" Grid.Column="1" Value="5"  MinDate="5" MaxDate="20" 
+                                        MinString="5K" MaxString="20K"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="1"  >
+                <Label Content="Lopass"  FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold" Foreground="White"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider11}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,6,0,6" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" >
+                <MyUserControl:TSlider  Name="TSlider12" Grid.Column="1" Value="50"  MinDate="50" MaxDate="250" 
+                                        MinString="50" MaxString="250" StepValue="10"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="2"  HorizontalAlignment="Left" >
+                <Label Content="Hipass"  FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold" Foreground="White"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" >
+                <StackPanel Orientation="Horizontal" >
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider12}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="20,6,0,8" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="3"  >
+                <MyUserControl:TSlider  Name="TSlider1" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12" 
+                                        />
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="3"  >
+                <Label Content="70Hz"  FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold" Foreground="White"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="3">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider1}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="4"  >
+                <MyUserControl:TSlider  Name="TSlider2" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"
+                                        />
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="4"  >
+                <Label Content="180Hz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider2}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="5"  >
+                <MyUserControl:TSlider  Name="TSlider3" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="5"  >
+                <Label Content="320Hz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider3}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="6"  >
+                <MyUserControl:TSlider  Name="TSlider4" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="6"  >
+                <Label Content="600Hz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="6">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider4}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="7"  >
+                <MyUserControl:TSlider Foreground="White" Name="TSlider5" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="7"  >
+                <Label Content="1KHz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="7">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider5}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="8"  >
+                <MyUserControl:TSlider  Name="TSlider6" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="8"  >
+                <Label Content="3KHz" Foreground="White"  FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="8">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider6}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="9"  >
+                <MyUserControl:TSlider  Name="TSlider7" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="9"  >
+                <Label Content="6KHz" Foreground="White"  FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="9">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider7}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="10"  >
+                <MyUserControl:TSlider  Name="TSlider8" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="10"  >
+                <Label Content="12KHz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider8}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="11"  >
+                <MyUserControl:TSlider  Name="TSlider9" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="11"  >
+                <Label Content="14KHz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="11">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider9}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+            <Viewbox  Grid.Row="2" Grid.Column="12"  HorizontalAlignment="Left" >
+                <MyUserControl:TSlider  Name="TSlider10" Grid.Column="1" Value="-12"  MinDate="-12" MaxDate="12"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Grid.Column="12"  >
+                <Label Content="16KHz" Foreground="White" FontSize="15" FontFamily="Nirmala UI" Margin="20,3,0,0" FontWeight="Bold"  />
+            </Viewbox>
+            <Viewbox Grid.Row="1" Grid.Column="12">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="50" Height="25" Text="{Binding Path=Value,ElementName=TSlider10}" IsReadOnly="True"
+							VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Red" Margin="30,0,0,3" FontSize="16"/>
+                    <Label Content="Hz" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Viewbox>
+
+        </Grid>-->
+
+
+    </Grid>
+</Window>

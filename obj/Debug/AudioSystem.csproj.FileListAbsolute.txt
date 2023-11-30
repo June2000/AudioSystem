@@ -1,0 +1,126 @@
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\bin\Debug\MyUserControl.dll
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\bin\Debug\MyUserControl.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\Login.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csprojResolveAssemblyReference.cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\Login.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\MyUserControl.dll
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\MyUserControl.pdb
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\bin\Debug\MyUserControl.pdb
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\Login.baml
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+C:\Users\Administrator\Desktop\2020年登记测试提交资料\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csprojResolveAssemblyReference.cache
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\bin\Debug\MyUserControl.pdb
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csprojResolveAssemblyReference.cache
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\Login.baml
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+C:\Users\admin\Desktop\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\MyUserControl.pdb
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csprojResolveAssemblyReference.cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\Login.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+F:\MyProject\音频项目\项目2\上位机\音频系统WPF - 备份\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\MyUserControl.pdb
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csprojResolveAssemblyReference.cache
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\Login.baml
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+D:\资料库\项目\1U功放\上位机\AudioSystemV1\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe.config
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.exe
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.pdb
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.exe
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\bin\Debug\AudioSystem.pdb
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\Login.baml
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\MainWindow.baml
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\修改密码.baml
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\Login.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\MainWindow.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\修改密码.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\App.g.cs
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem_MarkupCompile.cache
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.g.resources
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.Properties.Resources.resources
+D:\资料库\项目\1U功放\上位机\AudioSystemV1(修改过应答中性）\AudioSystemV1\AudioSystem\AudioSystem\obj\Debug\AudioSystem.csproj.GenerateResource.Cache
